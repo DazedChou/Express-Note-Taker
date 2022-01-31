@@ -15,10 +15,25 @@ app.get('/api/notes', (req, res) => res.json(noteData));
 
 // GET Route for homepage
 app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html'))
+    res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
 // GET route for note page
 app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/notes.html'))
+    res.sendFile(path.join(__dirname, '/public/notes.html'))
+);
+
+app.post('/api/notes', (req, res) => {
+    const { title, text } = req.body;
+    if (req.Body) {
+        const newNote = {
+            title,
+            text,
+        };
+        readAndAppend(newNote, './db/db.json')
+    }
+});
+
+app.listen(PORT, () =>
+    console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
