@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-app.get('/api/notes', (req, res) => res.json(noteData));
+
 
 // GET Route for homepage
 app.get('/', (req, res) =>
@@ -23,14 +23,18 @@ app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
+app.get('/api/notes', (req, res) => res.json(noteData));
+
 app.post('/api/notes', (req, res) => {
     const { title, text } = req.body;
-    if (req.Body) {
+    console.log(req.body);
+    if (req.body) {
         const newNote = {
             title,
             text,
         };
-        readAndAppend(newNote, './db/db.json')
+        readAndAppend(newNote, './db/db.json');
+
     }
 });
 
