@@ -40,7 +40,7 @@ app.post('/api/notes', (req, res) => {
             id: uuidv4(),
         };
         readAndAppend(newNote, './db/db.json');
-
+        res.json("Successfully posted");
     }
 });
 
