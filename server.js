@@ -3,6 +3,7 @@ const noteData = require('./db/db.json');
 const path = require('path');
 const { readFromFile, readAndAppend } = require('./helpers/fsUtils');
 const { v4: uuidv4 } = require('uuid');
+const fs = require('fs');
 
 const PORT = process.env.PORT || 3001;
 
@@ -46,7 +47,23 @@ app.post('/api/notes', (req, res) => {
 
 // Delete Route
 app.delete('/api/notes/:id', (req, res) => {
-
+    // console.log(req.params.id);
+    const currentId = req.params.id;
+    readFromFile('./db/db.json','utf-8')
+    .then((data) => {
+        data = JSON.parse(data);
+        console.log(data[0].id);
+        
+        for (let i = 0 ; i < data.length ; i++){
+            if ( data[i].id == currentId){
+                data.splice(i,1);
+                console.log(data);
+                data = JSON.stringify(data);
+                fs.writeFileSync('./db/db.json',data);
+            }
+        }
+    });
+    res.send('item deleted');
 })
 
 app.listen(PORT, () =>
