@@ -47,12 +47,11 @@ app.post('/api/notes', (req, res) => {
 
 // Delete Route
 app.delete('/api/notes/:id', (req, res) => {
-    // console.log(req.params.id);
+
     const currentId = req.params.id;
     readFromFile('./db/db.json','utf-8')
     .then((data) => {
         data = JSON.parse(data);
-        console.log(data[0].id);
         
         for (let i = 0 ; i < data.length ; i++){
             if ( data[i].id == currentId){
